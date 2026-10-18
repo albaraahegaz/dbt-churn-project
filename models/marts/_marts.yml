@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: int_customers_enriched
+    description: "One row per customer, joined to zip code population, with tenure, age and zip population groups added."
+    columns:
+      - name: customer_id
+        description: "Unique customer ID."
+        data_tests: [unique, not_null]
+      - name: population_segment
+        description: "Size of the customer's zip code: small (under 10k), medium (10k-40k) or large (40k+)."
+
+  - name: rpt_churn_by_dimension
+    description: "Churn rate for each customer segment (contract, internet type, payment method, offer, tenure, age, zip size, gender, marital status, paperless billing and premium tech support). Churn rate is churned customers divided by all customers in the segment."
+    columns:
+      - name: dimension
+        description: "The attribute being analysed, for example Contract."
+        data_tests: [not_null]
+      - name: segment
+        description: "The value of that attribute, for example Month-to-Month."
+        data_tests: [not_null]
+      - name: customers
+        description: "Number of customers in the segment."
+      - name: churned_customers
+        description: "Number of those customers who churned."
+      - name: churn_rate_pct
+        description: "Percentage of the segment's customers who churned."
+
+  - name: rpt_churn_reasons
+    description: "Reasons customers gave for leaving, with the share of all churn, average tenure and average monthly charge for each reason."
+    columns:
+      - name: churn_category
+        description: "High-level reason category: Competitor, Dissatisfaction, Attitude, Price or Other."
+        data_tests: [not_null]
+      - name: churn_reason
+        description: "Specific reason the customer gave for leaving."
+        data_tests: [not_null, unique]
+      - name: pct_of_all_churn
+        description: "Share of all churned customers who gave this reason."
