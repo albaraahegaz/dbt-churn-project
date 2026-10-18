@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: telecom
+    database: DEPI_DB
+    schema: PUBLIC
+    tables:
+      - name: telecom_customer_churn
+      - name: telecom_zipcode_population
+      - name: telecom_data_dictionary
